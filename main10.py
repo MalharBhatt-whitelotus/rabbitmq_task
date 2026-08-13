@@ -11,7 +11,7 @@ async def main10():
     publisher = RabbitmqPublisherTask10(exchange=rabbitmq.exchange)
     for i in range(1,11):
         await publisher.publish({"event": "file.uploaded", "file_id": i})
-    asyncio.sleep(2)
+    await asyncio.sleep(2)
     await rabbitmq.close()
 
 if __name__ == "__main__":
