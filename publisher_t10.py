@@ -7,7 +7,7 @@ class RabbitmqPublisherTask10:
         self.exchange = exchange
 
     async def publish(self, message):
-        self.exchange.publish(
+        await self.exchange.publish(
             aio_pika.Message(json.dumps(message).encode("utf-8")),
             routing_key="file.uploaded",
         )
