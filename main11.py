@@ -8,7 +8,7 @@ async def main11():
     await rabbitmq.connect()
     await rabbitmq.channel.declare_queue(name="file_queue", durable=True)
     publisher = RabbitmqPublisherTask11(rabbitmq.exchange)
-    await publisher.publish({"event": "file.uploaded", "file_id": 1, "retry_count":1})
+    await publisher.publish({"event": "file.uploaded", "file_id": 1, "retry_count":0})
     await asyncio.sleep(2)
     await rabbitmq.close()
 
