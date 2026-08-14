@@ -9,13 +9,14 @@ async def main12():
     await rabbitmq.channel.declare_queue("main_queue", durable=True)
 
     publisher = RabbitmqPublisherTask12(rabbitmq.exchange)
-    await publisher.publish(
-        {
-            "event": "file.uploaded",
-            "file_id": 1,
-            "retry_count":0,
-        }
-    )
+    for i in range(1, 111):
+        await publisher.publish(
+            {
+                "event": "file.uploaded",
+                "file_id": i,
+                "retry_count":0,
+            }
+        )
     await asyncio.sleep(2)
     await rabbitmq.close()
 
