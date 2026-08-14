@@ -23,7 +23,7 @@ async def consume(message: IncomingMessage, exchange, retry_exchange, dlq_exchan
             print("Sendng to retry queue...")
             await retry_exchange.publish(new_message, routing_key="retry")
             print("Message sent for retry...")
-            await message.ack()
+            await message.ack() 
         else:
             print("Maximum attempt reached...")
             dlq_message = aio_pika.Message(json.dumps(body).encode())
@@ -34,6 +34,7 @@ async def consume(message: IncomingMessage, exchange, retry_exchange, dlq_exchan
 async def process_msg(message):
     print("Processing Message...")
     print(message)
+    await asyncio.sleep(2)
     if message.get("file_id", 0) % 2 == 0:
         raise Exception("Failed to process message...")
     print("Message processed successfully.")
