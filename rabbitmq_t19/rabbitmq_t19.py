@@ -47,17 +47,13 @@ class RabbitmqConnectionTask19:
             durable=True,
             arguments={
                 "x-message-ttl": 5000,
-                "x-dead-letter-exchange": "retry_exchange_task19",
-                "x-dead-letter-routing-key": "retry.task19"
+                "x-dead-letter-exchange": "main_exchange_task19",
+                "x-dead-letter-routing-key": "main_task19.key"
             },
         )
         await self.retry_queue.bind(
             exchange=self.retry_exchange,
             routing_key="retry.task19"
-        )
-        await self.main_queue.bind(
-            exchange=self.retry_exchange,
-            routing_key="retry.task19",
         )
         print("Retry Queue is connected....")
         #------------------
