@@ -46,19 +46,19 @@ class RabbitmqConnectionTask23:
             type=aio_pika.ExchangeType.DIRECT,
             durable=True,
         )
-        for i in range(1, self.attempts+1):
+        for i in range(0, self.attempts):
             self.retry_queue = await self.channel.declare_queue(
                 name=f"retry_{i}_queue_task23",
                 durable=True,
+                arguments={
+                    "x-message-ttl": 5000 * (2 ** i),
+                    "x-dead-letter-exchange": "main_exchange_task23",
+                    "x-dead-letter-routing-key": "main_task23.key",
+                }
             )
             await self.retry_queue.bind(
                 exchange=self.retry_exchange,
                 routing_key=f"retry_{i}_task23.key",
-                arguments={
-                    "x-message-ttl": 5000 * (2 ** (i - 1)),
-                    "x-dead-letter-exchange": "main_exchange_task23",
-                    "x-dead-letter-routing-key": "main_task23.key",
-                }
             )
             print(f"Retry {i} queue created...")
         #--------------------
