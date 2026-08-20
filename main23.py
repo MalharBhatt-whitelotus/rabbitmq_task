@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 from rabbitmq_t23 import RabbitmqConnectionTask23
 from publisher_t23 import RabbitmqPublisherTask23
 
-async def main23():
+async def main23() -> None:
     rabbitmq = RabbitmqConnectionTask23("amqp://guest:guest@localhost:5672")
     await rabbitmq.connect()
     publisher = RabbitmqPublisherTask23(rabbitmq.main_exchange)
