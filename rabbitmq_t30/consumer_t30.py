@@ -213,7 +213,7 @@ class RabbitmqConsumerTask30:
                 print(f"Retry Consumer started for retry{i}...")
             return
         if self.consumer_type == "dlq":
-            await self.rabbitmq.dlq.consume(self.dlq_consumer)
+            self.consumer_tag = await self.rabbitmq.dlq.consume(self.dlq_consumer)
             print("DLQ Consumer is started...")
             return
         queue = await self._get_queue()
