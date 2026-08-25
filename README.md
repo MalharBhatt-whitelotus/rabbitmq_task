@@ -1,2 +1,2 @@
 # rabbitmq_task
-# Celery_task
+# Minio_task
