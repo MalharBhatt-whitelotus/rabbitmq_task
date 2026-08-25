@@ -1,0 +1,3 @@
+[submodule "minio_task"]
+	path = minio_task
+	url = https://github.com/MalharBhatt-whitelotus/minio_task.git
